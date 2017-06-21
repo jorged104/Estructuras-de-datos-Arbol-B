@@ -1,0 +1,53 @@
+digraph {
+	X0Y0Z0 [label=None]
+		X0Y0Z0 -> X1Y0Z0
+		X0Y0Z0 -> X0Y1Z0
+	X1Y0Z0 [label=1]
+		X1Y0Z0 -> X2Y0Z0
+		X1Y0Z0 -> X0Y0Z0
+		X1Y0Z0 -> X1Y1Z0
+	X2Y0Z0 [label=2]
+		X2Y0Z0 -> X3Y0Z0
+		X2Y0Z0 -> X1Y0Z0
+		X2Y0Z0 -> X2Y1Z0
+	X3Y0Z0 [label=3]
+		X3Y0Z0 -> X5Y0Z0
+		X3Y0Z0 -> X2Y0Z0
+		X3Y0Z0 -> X3Y6Z0
+	X5Y0Z0 [label=5]
+		X5Y0Z0 -> X3Y0Z0
+		X5Y0Z0 -> X5Y1Z0
+{ rank = same;  X0Y0Z0 X1Y0Z0 X2Y0Z0 X3Y0Z0 X5Y0Z0}
+	X0Y1Z0 [label=1]
+		X0Y1Z0 -> X1Y1Z0
+		X0Y1Z0 -> X0Y0Z0
+		X0Y1Z0 -> X0Y3Z0
+	X1Y1Z0 [label=holitas]
+		X1Y1Z0 -> X2Y1Z0
+		X1Y1Z0 -> X0Y1Z0
+		X1Y1Z0 -> X1Y0Z0
+	X2Y1Z0 [label=repetidosssakjdhsakjdaksj]
+		X2Y1Z0 -> X5Y1Z0
+		X2Y1Z0 -> X1Y1Z0
+		X2Y1Z0 -> X2Y0Z0
+		X2Y1Z0 -> X2Y3Z0
+	X5Y1Z0 [label=holitas]
+		X5Y1Z0 -> X2Y1Z0
+		X5Y1Z0 -> X5Y0Z0
+{ rank = same;  X0Y1Z0 X1Y1Z0 X2Y1Z0 X5Y1Z0}
+	X0Y3Z0 [label=3]
+		X0Y3Z0 -> X2Y3Z0
+		X0Y3Z0 -> X0Y1Z0
+		X0Y3Z0 -> X0Y6Z0
+	X2Y3Z0 [label=holitas]
+		X2Y3Z0 -> X0Y3Z0
+		X2Y3Z0 -> X2Y1Z0
+{ rank = same;  X0Y3Z0 X2Y3Z0}
+	X0Y6Z0 [label=6]
+		X0Y6Z0 -> X3Y6Z0
+		X0Y6Z0 -> X0Y3Z0
+	X3Y6Z0 [label=holitas]
+		X3Y6Z0 -> X0Y6Z0
+		X3Y6Z0 -> X3Y0Z0
+{ rank = same;  X0Y6Z0 X3Y6Z0}
+}
