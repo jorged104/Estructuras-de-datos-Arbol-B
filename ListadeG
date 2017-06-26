@@ -1,0 +1,12 @@
+digraph {
+	"ListadegN#L#g" [label=Listadeg]
+		"ListadegN#L#g" -> "Listadeg2N#L#g"
+	"Listadeg2N#L#g" [label=Listadeg2]
+		"Listadeg2N#L#g" -> "Listadeg3N#L#g"
+		"Listadeg2N#L#g" -> "ListadegN#L#g"
+	"Listadeg3N#L#g" [label=Listadeg3]
+		"Listadeg3N#L#g" -> "Listadeg4N#L#g"
+		"Listadeg3N#L#g" -> "Listadeg2N#L#g"
+	"Listadeg4N#L#g" [label=Listadeg4]
+		"Listadeg4N#L#g" -> "Listadeg3N#L#g"
+}

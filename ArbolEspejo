@@ -1,0 +1,37 @@
+digraph {
+	f [label="f saber"]
+	"ListadeFN#L#f" [label=ListadeF]
+		"ListadeFN#L#f" -> "ListadeF2N#L#f"
+	"ListadeF2N#L#f" [label=ListadeF2]
+		"ListadeF2N#L#f" -> "ListadeF3N#L#f"
+		"ListadeF2N#L#f" -> "ListadeFN#L#f"
+	"ListadeF3N#L#f" [label=ListadeF3]
+		"ListadeF3N#L#f" -> "ListadeF4N#L#f"
+		"ListadeF3N#L#f" -> "ListadeF2N#L#f"
+	"ListadeF4N#L#f" [label=ListadeF4]
+		"ListadeF4N#L#f" -> "ListadeF3N#L#f"
+		f -> "ListadeFN#L#f"
+		f -> x
+	x [label="x saber"]
+	g [label="g saber"]
+	"ListadegN#L#g" [label=Listadeg]
+		"ListadegN#L#g" -> "Listadeg2N#L#g"
+	"Listadeg2N#L#g" [label=Listadeg2]
+		"Listadeg2N#L#g" -> "Listadeg3N#L#g"
+		"Listadeg2N#L#g" -> "ListadegN#L#g"
+	"Listadeg3N#L#g" [label=Listadeg3]
+		"Listadeg3N#L#g" -> "Listadeg4N#L#g"
+		"Listadeg3N#L#g" -> "Listadeg2N#L#g"
+	"Listadeg4N#L#g" [label=Listadeg4]
+		"Listadeg4N#L#g" -> "Listadeg3N#L#g"
+		g -> "ListadegN#L#g"
+		x -> g
+		x -> z
+	z [label="z saber"]
+	d [label="d saber"]
+	a [label="a perro2"]
+		d -> a
+		d -> e
+	e [label="e saber"]
+		f -> d
+}

@@ -17,7 +17,7 @@ class Matriz():
 	"""docstring for matriz"""
 	def __init__(self):
 		self.cabeza = Nodo(None)
-		
+								
 	#------------------------Busquedas en cabezeras
 	def BuscarX(self,x):
 		nodotemp = self.cabeza
@@ -34,8 +34,16 @@ class Matriz():
 			nodotemp = nodotemp.abajo			
 	#METODO Insertar-------------------------------------------------------------------
 	def Insertar(self,x,y,z,data):
-		nuevo = Nodo(data)
-		if self.Buscar(x,y,z) == None:
+		nuevoz = Nodo(data)
+		if z == 0:
+			nuevo = Nodo(data)
+		else:
+			nuevo = Nodo("Null")
+			nuevoz.x = x 
+			nuevoz.y = y 
+			nuevoz.z = z 	
+		busqueda = self.Buscar(x,y,z)
+		if busqueda == None:
 			nuevo.x = x
 			nuevo.y = y
 			cabezeraX = self.BuscarX(x)
@@ -99,6 +107,36 @@ class Matriz():
 			nuevo.arriba = cabezeraX
 			cabezeraY.derecha = nuevo
 			nuevo.izquierda = cabezeraY
+			busqueda = nuevo
+			#Comprobar busquedas en Z =) 
+		if z > 0:
+			profundidad = busqueda
+			while profundidad.z < z and profundidad.frente != None:
+				if profundidad.frente.z < z:
+					profundidad = profundidad.frente
+				else:
+					break
+			if profundidad.frente != None:
+				profundidad.frente.atras = nuevoz
+				nuevoz.frente = profundidad.frente
+			profundidad.frente = nuevoz
+			nuevoz.atras = profundidad
+
+		if z < 0 :
+			profundidad = busqueda
+			while profundidad.z > z and profundidad.atras != None:
+				if profundidad.atras.z > z :
+					profundidad = profundidad.atras
+				else:
+					break
+			if profundidad.atras != None:
+				profundidad.atras.frente = nuevoz
+				nuevoz.atras = profundidad.atras
+			profundidad.atras = nuevoz
+			nuevoz.frente = profundidad	
+
+
+
 	# Imprimir En planp -------------------------------------------------------
 	def Imprimir(self):
 		aux = self.cabeza
@@ -126,7 +164,23 @@ class Matriz():
 			rank = "{ rank = same; "	
 			while auxt != None:
 				#dot.attr("graph",style='filled')
+				aux3 = auxt 
 				dot.node(str(self.GetNombre(auxt)),str(auxt.dato))
+				while aux3 != None:
+					dot.node(str(self.GetNombre(aux3)),str(aux3.dato))
+					if aux3.frente != None:
+						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.frente)))
+					if aux3.atras != None:
+						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.atras)))	
+					aux3 = aux3.frente
+				aux3 = auxt
+				while aux3 != None:
+					dot.node(str(self.GetNombre(aux3)),str(aux3.dato))
+					if aux3.frente != None:
+						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.frente)))
+					if aux3.atras != None:
+						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.atras)))	
+					aux3 = aux3.atras					
 				if auxt.derecha != None:
 					dot.edge(str(self.GetNombre(auxt)),str(self.GetNombre(auxt.derecha)))
 				if auxt.izquierda != None:
@@ -141,7 +195,7 @@ class Matriz():
 			dot.body.append(rank)
 			aux = aux.abajo 
 		dot.format = 'png' 
-		dot.render('lista')	
+		dot.render('MatrizDispersa')	
 		print ( dot.source)			
 	def GetNombre(sef,nodo):
 		nombre = str("X"+str(nodo.x)+"Y"+str(nodo.y)+"Z"+str(nodo.z))
@@ -150,8 +204,12 @@ MatrizPruebas = Matriz()
 MatrizPruebas.Insertar(3,6,0,"holitas")
 MatrizPruebas.Insertar(1,1,0,"holitas")
 MatrizPruebas.Insertar(5,1,0,"holitas")
-MatrizPruebas.Insertar(2,1,0,"repetidosssakjdhsakjdaksj")	
+#MatrizPruebas.Insertar(2,1,0,"repetidosssakjdhsakjdaksj")	
 MatrizPruebas.Insertar(2,3,0,"holitas")
-MatrizPruebas.Insertar(2,1,0,"adios")	
+#MatrizPruebas.Insertar(2,1,0,"adios")	
+MatrizPruebas.Insertar(2,1,1,"satelite")
+MatrizPruebas.Insertar(2,1,2,"SuperSatelite")
+MatrizPruebas.Insertar(2,1,-2,"submarido")
+MatrizPruebas.Insertar(2,1,-3,"SuperSubmarino")
 MatrizPruebas.Graficar()
 		
