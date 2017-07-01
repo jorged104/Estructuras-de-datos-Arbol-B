@@ -1,0 +1,5 @@
+digraph {
+	X0Y0Z0 [label="None,0"]
+	X0Y0Z0 [label="None,0"]
+{ rank = same;  X0Y0Z0}
+}

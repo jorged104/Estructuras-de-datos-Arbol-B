@@ -1,15 +1,21 @@
 digraph {
-	d [label="d , saber , 0"]
-	a [label="a , saber , 0"]
-		d -> a
-		d -> e
-	e [label="e , saber , 0"]
-		e -> x
-	x [label="x , saber , 0"]
-	g [label="g , saber , 0"]
-		x -> g
-		x -> z
-	z [label="z , saber , 0"]
-		z -> z2
-	z2 [label="z2 , saber , 0"]
+	Admin [label="Admin , admin , 0"]
+	"Stin94N#L#Admin" [label="Stin94 R: 0 A: 0 F: 0 G Admin Re 0"]
+		Admin -> "Stin94N#L#Admin"
+		Admin -> Mord86
+	Mord86 [label="Mord86 , NPZ44VGE5FD , 0"]
+	Asro25 [label="Asro25 , PDW92QLF0HC , 0"]
+		Asro25 -> Imre78
+	Imre78 [label="Imre78 , MDQ80CXX3XT , 0"]
+	Avey48 [label="Avey48 , ZEE21HJG3WL , 0"]
+		Imre78 -> Avey48
+		Mord86 -> Asro25
+		Mord86 -> Stin94
+	Stin94 [label="Stin94 , hola , 1"]
+	"AdminN#L#Stin94" [label="Admin R: 0 A: 0 F: 0 G Stin94 Re 0"]
+		Stin94 -> "AdminN#L#Stin94"
+	Stin94 [label="Stin94 , Admin , 0"]
+		Stin94 -> Stin94
+		Stin94 -> Taon95
+	Taon95 [label="Taon95 , USW07EIK1AC , 0"]
 }

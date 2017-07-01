@@ -36,8 +36,9 @@
         var rafagas = 0;
         var usuario = "<% out.print(strUsuarioActual);%>";
         var turno = false;
+         var refreshIntervalId = setInterval(juego,1000);
         $(document).ready(function(){
-            setInterval(juego,1000);
+          
         });
         function juego()
         {
@@ -185,13 +186,28 @@
             var x = $("#disparox").val();
 
             var y = letra($("#disparoy").val());
-            
+            alert(y);
+            alert(letra('D'));
             var z = $("$disparoz").val();
+            var zt = ["barco","avione","satelite"];
+            var z2 = "";
+            if ( z >= 0)
+            {
+             z2 = zt[z];
+            }
+            else
+            {
+                z2 = "submarino";
+            }
+            var sx = x.toString()
+            var sy = y.toString()
             	$.ajax({	
                     url : '/cliente/llamarpython',
                     type: "POST",
                     data : {usuario:usuario,z:z,tipo:"disparo",x:x,y:y},
                     success: function(response) {
+                        $("#T"+sx+z2+sy).css("background","red");
+                         $("#add").attr("disabled",true);
                             console.log(response);
                     },
                     error: function(error) {
@@ -322,34 +338,33 @@
                     }
 	});
         }
-       function ver()
-        {
-            var x = $("#disparox").val();
-            var y = $("#disparoy").val();
-            var z = $("#disparoz").val();
-            	$.ajax({	
-                    url : '/cliente/llamarpython',
-                    type: "POST",
-                    data : {usuario:usuario,z:z,tipo:"disparo",x:x,y:y},
-                    success: function(response) {
-                            console.log(response);
-                    },
-                    error: function(error) {
-                         console.log(error);
-                    }
-	});
-        }
+
         function ver()
         {
-            var x = $("#disparox").val();
+            var x = letra($("#disparox").val());
             var y = $("#disparoy").val();
             var z = $("#disparoz").val();
+             var zt = ["barco","avione","satelite"];
+            var z2 = "";
+            if ( z >= 0)
+            {
+             z2 = zt[z];
+            }
+            else
+            {
+                z2 = "submarino";
+            }
+            var sx = x.toString();
+            var sy = y.toString();
             	$.ajax({	
                     url : '/cliente/llamarpython',
                     type: "POST",
                     data : {usuario:usuario,z:z,tipo:"disparo",x:x,y:y},
                     success: function(response) {
                             console.log(response);
+                            $("#T"+sx+z2+sy).css("background","red");
+                            $("#add").attr("disabled",true);
+                            
                     },
                     error: function(error) {
                          console.log(error);
@@ -397,6 +412,7 @@
                             if (respon2 === "True")
                             {
                                 alert("gane");
+                                clearInterval(refreshIntervalId);
                                // alert("entrue");
                             }
                             else
@@ -410,12 +426,118 @@
                     }
 	});
         }
-        function letra( letra)
+         function getcubo()
         {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {usuario:usuario,tipo:"getcubo"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+         function getA()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {usuario:usuario,tipo:"geta"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+            function getF()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {usuario:usuario,tipo:"getf"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+             function inicial()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {usuario:usuario,tipo:"getcuboinicial"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+               function arbol()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {tipo:"getusuarios"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+              function arbolE()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {tipo:"getespejo"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+                   function ArbolDatos()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {tipo:"estadisticas"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html(response);
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
+        function letra( letra1)
+        {
+            var letrag = letra1.toString(); 
             var letras = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];  
         for (var i = 0 ; i < letras.length ; i++)
         {
-            if (letras[i] == letra)
+            if (letras[i] == letrag)
             {
                 return i;
             }
@@ -440,7 +562,7 @@
                         </select>
 			<input type="submit" value="Upload" />
 		</form>
-                <input type="button" onclick="rellenar(1)">
+                <input type="button" onclick="letra('D')">
                 <div class="row">
                     
                     <div class="col-md-4"><br>
@@ -454,8 +576,14 @@
                     </div>
                    
                 </div>
+                 <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="arbol()">Arbol Usuarios</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="arbolE()">Arbol Espejo</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="ArbolDatos()">Arbol Datos</button>
       <% } %>
-      
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="getcubo()">Actual</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="inicial()">CuboInicial</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="getA()">Tiros Acertados</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="getF()">Tiros Fallados</button>
       <div id="turnoDiv"></div>
       Disparo x <input id ="disparox">
       Disparo y <input id ="disparoy">
@@ -481,7 +609,7 @@
           <option value="2">Vertical</option>
           
         </select>
-        <button onclick="AgregarNave()">Agregar Nave</button>
+        <button onclick="AgregarNave()" id="add">Agregar Nave</button>
       </div>
                 <div class="row">
                     
@@ -509,6 +637,31 @@
                     </div>
                 </div>
         
-        
+      <style>
+          #myModal{
+              position:absolute;
+overflow:scroll;
+          }
+      </style>
+        <div id="myModal" class="modal fade" role="dialog">
+            
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Reportes</h4>
+      </div>
+      <div class="modal-body">
+        <div id="respuestaM"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
     </body>
 </html>

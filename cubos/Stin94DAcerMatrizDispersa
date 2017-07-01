@@ -1,0 +1,23 @@
+digraph {
+	X0Y0Z0 [label="None,0"]
+	X0Y0Z0 [label="None,0"]
+		X0Y0Z0 -> X3Y0Z0
+		X0Y0Z0 -> X0Y1Z0
+	X3Y0Z0 [label="3,0"]
+	X3Y0Z0 [label="3,0"]
+		X3Y0Z0 -> X0Y0Z0
+		X3Y0Z0 -> X3Y1Z0
+{ rank = same;  X0Y0Z0 X3Y0Z0}
+	X0Y1Z0 [label="1,0"]
+	X0Y1Z0 [label="1,0"]
+		X0Y1Z0 -> X3Y1Z0
+		X0Y1Z0 -> X0Y0Z0
+	X3Y1Z0 [label="Null,0"]
+	X3Y1Z0 [label="Null,0"]
+		X3Y1Z0 -> X3Y1Z2
+	X3Y1Z2 [label="boom,0"]
+		X3Y1Z2 -> X3Y1Z0
+		X3Y1Z0 -> X0Y1Z0
+		X3Y1Z0 -> X3Y0Z0
+{ rank = same;  X0Y1Z0 X3Y1Z0}
+}

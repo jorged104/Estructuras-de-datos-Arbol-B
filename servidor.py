@@ -152,8 +152,8 @@ def tiro():
 	dis = None
 	if game.iniciado == False:
 		game.iniciado = True
-		cubo1 = game.Ausuario1.cubo
-		cubo2 = game.Ausuario2.cubo
+		game.cubo1 = game.Ausuario1.cubo
+		game.cubo2 = game.Ausuario2.cubo
 	if usuario == game.usuario1:
 		tirarA = game.Ausuario2
 		dis = game.Ausuario1
@@ -169,12 +169,13 @@ def tiro():
 			game.turno = game.usuario1
 			game.dips = int(game.rafagas)
 	if tirarA != None:
-		tirarA.cubo.tiro(x,y,z)
-		t = tirarA.cubo.busquedaFull(x,y,z)
-		if t != None:
+		t = tirarA.cubo.tiro(x,y,z)
+		if t == True:
 			dis.disparosA.Insertar(int(x),int(y),int(z),"boom")
+
 		else:
 			dis.disparosF.Insertar(int(x),int(y),int(z),"boom")
+			print("********************"+ str(t)+"*****")
 		return "Tiro True"
 	return "No Funciono"					
 @app.route('/getGame',methods=['POST'])
@@ -211,7 +212,7 @@ def cuboNavesInicial():
 		cubito = game.cubo2
 	#us = usuarios.buscar(usuario,usuarios.raiz)
 	if cubito != None:
-		us.cubo.Graficar(usuario+"Original")
+		cubito.Graficar(usuario+"Original")
 		with open("cubos/"+usuario+"Original"+"MatrizDispersa.png", "rb") as image:
 			data = image.read()
 		encoded_string = base64.b64encode(data)
@@ -277,20 +278,21 @@ def gane():
 	
 	if tirarA != None:
 		res = tirarA.cubo.perdi()
-		if game.registro == False:
-			nodo = usuario.lista.insertar(dis.usuario)
-			nodo.tirosR = 0
-			nodo.tirosA = 0
-			nodo.tirosF = 0
-			nodo.ganada = tirarA.usuario
-			nodo.dano = 0
-			nodo = usuario.lista.insertar(tirarA.usuario)
-			nodo.tirosR = 0
-			nodo.tirosA = 0
-			nodo.tirosF = 0
-			nodo.ganada = dis.usuario
-			nodo.dano = 0
-			game.registro = True
+		if res == "True":
+			if game.registro == False:
+				nodo = tirarA.lista.insertar(dis.usuario)
+				nodo.tirosR = 0
+				nodo.tirosA = 0
+				nodo.tirosF = 0
+				nodo.ganada = tirarA.usuario
+				nodo.dano = 0
+				nodo = dis.lista.insertar(tirarA.usuario)
+				nodo.tirosR = 0
+				nodo.tirosA = 0
+				nodo.tirosF = 0
+				nodo.ganada = dis.usuario
+				nodo.dano = 0
+				game.registro = True
 		return res
     
 	return "No Funciono"

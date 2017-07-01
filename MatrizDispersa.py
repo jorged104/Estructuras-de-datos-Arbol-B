@@ -170,9 +170,9 @@ class Matriz():
 			while auxt != None:
 				#dot.attr("graph",style='filled')
 				aux3 = auxt 
-				dot.node(str(self.GetNombre(auxt)),str(auxt.dato))
+				dot.node(str(self.GetNombre(auxt)),str(auxt.dato)+","+str(auxt.disparo))
 				while aux3 != None:
-					dot.node(str(self.GetNombre(aux3)),str(aux3.dato))
+					dot.node(str(self.GetNombre(aux3)),str(aux3.dato)+","+str(auxt.disparo))
 					if aux3.frente != None:
 						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.frente)))
 					if aux3.atras != None:
@@ -180,7 +180,7 @@ class Matriz():
 					aux3 = aux3.frente
 				aux3 = auxt.atras
 				while aux3 != None:
-					dot.node(str(self.GetNombre(aux3)),str(aux3.dato))
+					dot.node(str(self.GetNombre(aux3)),str(aux3.dato)+","+str(auxt.disparo))
 					if aux3.frente != None:
 						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.frente)))
 					if aux3.atras != None:
@@ -256,6 +256,8 @@ class Matriz():
 		nodo = self.busquedaFull(int(x),int(y),int(z))
 		if nodo != None:
 			nodo.disparo = 1
+			return True
+		return False	
 	def perdi(self):
 		retorno = ""
 		aux = self.cabeza

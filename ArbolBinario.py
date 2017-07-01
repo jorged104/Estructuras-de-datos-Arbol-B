@@ -23,6 +23,7 @@ class 	ArbolBinario():
 		self.hojas = 0
 		self.noditos = 0
 		self.listaNodos = ""
+		self.espejo = None
 	def insertar(self,usuario,pas,nodo,insert):
 		if self.raiz == None:
 			self.raiz = insert
@@ -37,6 +38,20 @@ class 	ArbolBinario():
 					nodo.izquierda = insert
 				else:
 					self.insertar(usuario,pas,nodo.izquierda,insert)
+	def insertarEspejo(self,usuario,nodo,insert):
+		if self.raiz == None:
+			self.raiz = insert
+		else:	
+			if  usuario < nodo.usuario: 						
+				if nodo.derecha	== None:	
+					nodo.derecha = insert
+				else:	
+					self.insertarEspejo(usuario,nodo.derecha,insert)						
+			else:
+				if nodo.izquierda == None:
+					nodo.izquierda = insert
+				else:
+					self.insertarEspejo(usuario,nodo.izquierda,insert)			
 	def imprimir(self,nodo,dot):
 		if nodo != None:
 			#print( str(nodo.usuario))
@@ -52,19 +67,7 @@ class 	ArbolBinario():
 		if nodo.derecha	 != None:
 			dot.edge(str(nodo.usuario),str(nodo.derecha.usuario))
 			self.imprimir(nodo.derecha,dot)
-	def espejo(self,nodo,dot):
-		if nodo != None:
-			dot.node(str(nodo.usuario),str(nodo.usuario)+" "+str(nodo.pas))
-			nodo.lista.graficar(dot)
-		else:
-			return None	
-		if nodo.derecha	 != None:
-			dot.edge(str(nodo.usuario),str(nodo.derecha.usuario))
-			self.imprimir(nodo.derecha,dot)	
-		if nodo.izquierda != None:
-			self.imprimir(nodo.izquierda,dot)
-			dot.edge(str(nodo.usuario),str(nodo.izquierda.usuario))					
-
+	
 	def editar(self,usuario,pas,on,nodo):
 		if nodo != None:
 			if nodo.usuario == usuario:
@@ -89,9 +92,21 @@ class 	ArbolBinario():
 		dot.format = 'png' 
 		dot.render("Arbolito")
 		return None
+	def hacerespejo(self,nodo,espejito):
+		if nodo != None:
+			nuevo = Nodo(nodo.usuario,nodo.pas)
+			espejito.insertarEspejo(nodo.usuario,espejito.raiz,nuevo)
+		else:
+			return None	
+		if nodo.izquierda != None:
+			self.hacerespejo(nodo.izquierda,espejito)
+		if nodo.derecha	 != None:
+			self.hacerespejo(nodo.derecha,espejito)
 	def graficarespejo(self):
+		espejito = ArbolBinario()
+		self.hacerespejo(self.raiz,espejito)
 		dot = Digraph()
-		self.espejo(self.raiz,dot)
+		espejito.imprimir(espejito.raiz,dot)
 		dot.format = 'png'
 		dot.render("ArbolEspejo")
 		return None
@@ -314,6 +329,7 @@ class 	ArbolBinario():
 #ArbolNavideno.insertarPro("g","saber",0)
 #ArbolNavideno.insertarPro("z","saber",0)
 #ArbolNavideno.insertarPro("z2","saber",0)
+#ArbolNavideno.graficarespejo()
 #ArbolNavideno.eli("f")
 #ArbolNavideno.graficar()
 
