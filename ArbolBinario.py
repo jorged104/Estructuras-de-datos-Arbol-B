@@ -14,6 +14,9 @@ class 	Nodo():
 		self.disparosF = MatrizDispersa.Matriz()
 		self.derecha = None
 		self.izquierda = None
+		self.R =0
+		self.F =0
+		self.A =0
  
 class 	ArbolBinario():
 	def __init__(self):

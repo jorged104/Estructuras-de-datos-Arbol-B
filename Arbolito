@@ -1,6 +1,6 @@
 digraph {
 	Admin [label="Admin , admin , 0"]
-	"Stin94N#L#Admin" [label="Stin94 R: 0 A: 0 F: 0 G Admin Re 0"]
+	"Stin94N#L#Admin" [label="Stin94 R: 0 A: 0 F: 0 G Stin94 Re 0"]
 		Admin -> "Stin94N#L#Admin"
 		Admin -> Mord86
 	Mord86 [label="Mord86 , NPZ44VGE5FD , 0"]
@@ -12,10 +12,8 @@ digraph {
 		Mord86 -> Asro25
 		Mord86 -> Stin94
 	Stin94 [label="Stin94 , hola , 1"]
-	"AdminN#L#Stin94" [label="Admin R: 0 A: 0 F: 0 G Stin94 Re 0"]
+	"AdminN#L#Stin94" [label="Admin R: 1 A: 1 F: 0 G Stin94 Re 0"]
 		Stin94 -> "AdminN#L#Stin94"
-	Stin94 [label="Stin94 , Admin , 0"]
-		Stin94 -> Stin94
 		Stin94 -> Taon95
 	Taon95 [label="Taon95 , USW07EIK1AC , 0"]
 }

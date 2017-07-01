@@ -169,12 +169,14 @@ def tiro():
 			game.turno = game.usuario1
 			game.dips = int(game.rafagas)
 	if tirarA != None:
+		dis.R = dis.R + 1
 		t = tirarA.cubo.tiro(x,y,z)
 		if t == True:
 			dis.disparosA.Insertar(int(x),int(y),int(z),"boom")
-
+			dis.A = dis.A +1
 		else:
 			dis.disparosF.Insertar(int(x),int(y),int(z),"boom")
+			dis.F = dis.F +1
 			print("********************"+ str(t)+"*****")
 		return "Tiro True"
 	return "No Funciono"					
@@ -281,15 +283,15 @@ def gane():
 		if res == "True":
 			if game.registro == False:
 				nodo = tirarA.lista.insertar(dis.usuario)
-				nodo.tirosR = 0
-				nodo.tirosA = 0
-				nodo.tirosF = 0
-				nodo.ganada = tirarA.usuario
+				nodo.tirosR = tirarA.R
+				nodo.tirosA = tirarA.A
+				nodo.tirosF = tirarA.F
+				nodo.ganada = dis.usuario
 				nodo.dano = 0
 				nodo = dis.lista.insertar(tirarA.usuario)
-				nodo.tirosR = 0
-				nodo.tirosA = 0
-				nodo.tirosF = 0
+				nodo.tirosR = dis.R
+				nodo.tirosA = dis.A
+				nodo.tirosF = dis.F
 				nodo.ganada = dis.usuario
 				nodo.dano = 0
 				game.registro = True
