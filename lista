@@ -1,15 +1,15 @@
 digraph {
-	"PabloN#Caren" [label=Pablo]
+	"PabloN#Caren" [label="Pablo R: None A: None F: None G False Re False"]
 		"PabloN#Caren" -> "DanielaN#Caren"
-	"DanielaN#Caren" [label=Daniela]
+	"DanielaN#Caren" [label="Daniela R: None A: None F: None G False Re False"]
 		"DanielaN#Caren" -> "valeriaN#Caren"
 		"DanielaN#Caren" -> "PabloN#Caren"
-	"valeriaN#Caren" [label=valeria]
+	"valeriaN#Caren" [label="valeria R: None A: None F: None G False Re False"]
 		"valeriaN#Caren" -> "silvanaN#Caren"
 		"valeriaN#Caren" -> "DanielaN#Caren"
-	"silvanaN#Caren" [label=silvana]
-		"silvanaN#Caren" -> "meliGuapisisisadmN#Caren"
+	"silvanaN#Caren" [label="silvana R: None A: None F: None G False Re False"]
+		"silvanaN#Caren" -> "meliN#Caren"
 		"silvanaN#Caren" -> "valeriaN#Caren"
-	"meliGuapisisisadmN#Caren" [label=meliGuapisisisadm]
-		"meliGuapisisisadmN#Caren" -> "silvanaN#Caren"
+	"meliN#Caren" [label="meli R: None A: None F: None G False Re False"]
+		"meliN#Caren" -> "silvanaN#Caren"
 }

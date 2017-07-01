@@ -12,6 +12,7 @@ class Nodo():
 		self.abajo = None
 		self.frente = None
 		self.atras = None
+		self.disparo = 0
 #-------------------------------MATRIS DISPERSA ----------------------------------
 class Matriz():
 	"""docstring for matriz"""
@@ -109,31 +110,35 @@ class Matriz():
 			nuevo.izquierda = cabezeraY
 			busqueda = nuevo
 			#Comprobar busquedas en Z =) 
-		if z > 0:
-			profundidad = busqueda
-			while profundidad.z < z and profundidad.frente != None:
-				if profundidad.frente.z < z:
-					profundidad = profundidad.frente
-				else:
-					break
-			if profundidad.frente != None:
-				profundidad.frente.atras = nuevoz
-				nuevoz.frente = profundidad.frente
-			profundidad.frente = nuevoz
-			nuevoz.atras = profundidad
+		if busqueda.dato == "Null" and z==0:
+			busqueda.dato = data
+		busqueda2 = self.busquedaFull(x,y,z)
+		if busqueda2 == None : 
+			if z > 0:
+				profundidad = busqueda
+				while profundidad.z < z and profundidad.frente != None:
+					if profundidad.frente.z < z:
+						profundidad = profundidad.frente
+					else:
+						break
+				if profundidad.frente != None:
+					profundidad.frente.atras = nuevoz
+					nuevoz.frente = profundidad.frente
+				profundidad.frente = nuevoz
+				nuevoz.atras = profundidad
 
-		if z < 0 :
-			profundidad = busqueda
-			while profundidad.z > z and profundidad.atras != None:
-				if profundidad.atras.z > z :
-					profundidad = profundidad.atras
-				else:
-					break
-			if profundidad.atras != None:
-				profundidad.atras.frente = nuevoz
-				nuevoz.atras = profundidad.atras
-			profundidad.atras = nuevoz
-			nuevoz.frente = profundidad	
+			if z < 0 :
+				profundidad = busqueda
+				while profundidad.z > z and profundidad.atras != None:
+					if profundidad.atras.z > z :
+						profundidad = profundidad.atras
+					else:
+						break
+				if profundidad.atras != None:
+					profundidad.atras.frente = nuevoz
+					nuevoz.atras = profundidad.atras
+				profundidad.atras = nuevoz
+				nuevoz.frente = profundidad	
 
 
 
@@ -155,7 +160,7 @@ class Matriz():
 					return auxt
 				auxt = auxt.derecha
 			aux = aux.abajo 
-	def Graficar(self):
+	def Graficar(self,nombre):
 		dot = Digraph()		
 		aux = self.cabeza
 		
@@ -173,7 +178,7 @@ class Matriz():
 					if aux3.atras != None:
 						dot.edge(str(self.GetNombre(aux3)),str(self.GetNombre(aux3.atras)))	
 					aux3 = aux3.frente
-				aux3 = auxt
+				aux3 = auxt.atras
 				while aux3 != None:
 					dot.node(str(self.GetNombre(aux3)),str(aux3.dato))
 					if aux3.frente != None:
@@ -195,21 +200,106 @@ class Matriz():
 			dot.body.append(rank)
 			aux = aux.abajo 
 		dot.format = 'png' 
-		dot.render('MatrizDispersa')	
-		print ( dot.source)			
+		dot.render('cubos/'+nombre+'MatrizDispersa')	
+		#print ( dot.source)			
 	def GetNombre(sef,nodo):
 		nombre = str("X"+str(nodo.x)+"Y"+str(nodo.y)+"Z"+str(nodo.z))
-		return nombre	
-MatrizPruebas = Matriz()
-MatrizPruebas.Insertar(3,6,0,"holitas")
-MatrizPruebas.Insertar(1,1,0,"holitas")
-MatrizPruebas.Insertar(5,1,0,"holitas")
+		return nombre
+	def busquedaFull(self,x,y,z):
+		aux = self.cabeza
+		while aux != None:
+			auxt = aux
+			while auxt != None:
+				if ( auxt.x == x and auxt.y == y):
+					if auxt.z == z:
+						return auxt
+					else:
+						tempz = auxt
+						while tempz != None:
+							if tempz.z == z:
+								return tempz
+							tempz = tempz.frente
+						tempz = auxt
+						while tempz != None:
+							if tempz.z == z :
+								return tempz
+							tempz = tempz.atras				
+				auxt = auxt.derecha
+			aux = aux.abajo 
+		return None		
+	def buscarEnZ(self,z,sepador):
+		retorno = ""
+		aux = self.cabeza
+		while aux != None:
+			auxt = aux
+			while auxt != None:
+				if(auxt.z == z and (auxt.x != 0 and auxt.y != 0 ) and auxt.dato != "Null"):
+					retorno = retorno + str(auxt.x) +sepador+str(auxt.y)+"#"+str(auxt.disparo)+"$" 
+
+				tempz = auxt.frente
+				
+				while tempz != None:
+					if tempz.z == z :
+						retorno  = retorno +str(tempz.x) +sepador+str(tempz.y)+"#"+str(tempz.disparo)+"$"
+					tempz = tempz.frente
+
+					
+				tempz = auxt.atras
+				while tempz != None:
+					if tempz.z == z :
+						retorno  = retorno + str(tempz.x) +sepador+str(tempz.y)+"#"+str(tempz.disparo)+"$"					
+					tempz = tempz.atras				
+				auxt = auxt.derecha
+			aux = aux.abajo
+		return retorno	 		
+	def tiro(self,x,y,z):
+		nodo = self.busquedaFull(int(x),int(y),int(z))
+		if nodo != None:
+			nodo.disparo = 1
+	def perdi(self):
+		retorno = ""
+		aux = self.cabeza
+		while aux != None:
+			auxt = aux
+			while auxt != None:
+				if( (auxt.x != 0 and auxt.y != 0 ) and auxt.dato != "Null"):
+					if auxt.disparo == 1 and retorno != "False":
+						retorno = "True" 
+					else:
+						retorno = "False"
+				tempz = auxt.frente
+				
+				while tempz != None:
+					
+					if tempz.disparo == 1 and retorno != "False":
+						retorno = "True" 
+					else:
+						retorno = "False"
+					tempz = tempz.frente
+
+					
+				tempz = auxt.atras
+				while tempz != None:
+					if tempz.disparo == 1 and retorno != "False":
+						retorno = "True" 
+					else:
+						retorno = "False"				
+					tempz = tempz.atras				
+				auxt = auxt.derecha
+			aux = aux.abajo
+		return retorno			
+#MatrizPruebas = Matriz()
+#MatrizPruebas.Insertar(3,6,0,"popito")
+#MatrizPruebas.Insertar(1,1,0,"holitas")
+#MatrizPruebas.Insertar(5,1,0,"holitas")
 #MatrizPruebas.Insertar(2,1,0,"repetidosssakjdhsakjdaksj")	
-MatrizPruebas.Insertar(2,3,0,"holitas")
+#MatrizPruebas.Insertar(2,3,0,"holitas")
 #MatrizPruebas.Insertar(2,1,0,"adios")	
-MatrizPruebas.Insertar(2,1,1,"satelite")
-MatrizPruebas.Insertar(2,1,2,"SuperSatelite")
-MatrizPruebas.Insertar(2,1,-2,"submarido")
-MatrizPruebas.Insertar(2,1,-3,"SuperSubmarino")
-MatrizPruebas.Graficar()
-		
+#MatrizPruebas.Insertar(2,1,1,"satelite")
+#MatrizPruebas.Insertar(2,1,2,"SuperSatelite")
+#MatrizPruebas.Insertar(2,1,-2,"submarido")
+#MatrizPruebas.Insertar(2,1,-3,"SuperSubmarino")
+#MatrizPruebas.Graficar()
+#SuperSubmarino = MatrizPruebas.busquedaFull(1,1,0)
+#if SuperSubmarino != None:
+#	print ( SuperSubmarino.dato)

@@ -1,5 +1,6 @@
 from graphviz import Digraph
 import Lista
+import MatrizDispersa
 class 	Nodo():
 	"""docstring for 	Nodo"""
 	def __init__(self, usuario,pas):
@@ -8,7 +9,9 @@ class 	Nodo():
 		self.on = False
 		self.lista	 = Lista.Lista()
 		self.lista.nombre = "L#"+usuario
-		self.cubo = None
+		self.cubo = MatrizDispersa.Matriz()
+		self.disparosA = MatrizDispersa.Matriz()
+		self.disparosF = MatrizDispersa.Matriz()
 		self.derecha = None
 		self.izquierda = None
  
@@ -19,24 +22,25 @@ class 	ArbolBinario():
 		self.nivel = 0 
 		self.hojas = 0
 		self.noditos = 0
-	def insertar(self,usuario,pas,nodo):
+		self.listaNodos = ""
+	def insertar(self,usuario,pas,nodo,insert):
 		if self.raiz == None:
-			self.raiz = Nodo(usuario,pas)
+			self.raiz = insert
 		else:	
 			if  usuario > nodo.usuario: 						
 				if nodo.derecha	== None:	
-					nodo.derecha = Nodo(usuario,pas)
+					nodo.derecha = insert
 				else:	
-					self.insertar(usuario,pas,nodo.derecha)						
+					self.insertar(usuario,pas,nodo.derecha,insert)						
 			else:
 				if nodo.izquierda == None:
-					nodo.izquierda = Nodo(usuario,pas)
+					nodo.izquierda = insert
 				else:
-					self.insertar(usuario,pas,nodo.izquierda)
+					self.insertar(usuario,pas,nodo.izquierda,insert)
 	def imprimir(self,nodo,dot):
 		if nodo != None:
 			#print( str(nodo.usuario))
-			dot.node(str(nodo.usuario),str(nodo.usuario)+" "+str(nodo.pas))
+			dot.node(str(nodo.usuario),str(nodo.usuario)+" , "+str(nodo.pas) + " , " + str(nodo.on) )
 			nodo.lista.graficar(dot)
 			if nodo.lista.cabeza != None:
 				dot.edge(str(nodo.usuario),str(nodo.lista.cabeza.oponente+"N#"+nodo.lista.nombre))
@@ -84,11 +88,13 @@ class 	ArbolBinario():
 		self.imprimir(self.raiz,dot)
 		dot.format = 'png' 
 		dot.render("Arbolito")
+		return None
 	def graficarespejo(self):
 		dot = Digraph()
 		self.espejo(self.raiz,dot)
 		dot.format = 'png'
 		dot.render("ArbolEspejo")
+		return None
 	def max(self,num1,num2):
 		if num1 >= num2:
 			return num1
@@ -110,8 +116,11 @@ class 	ArbolBinario():
 			return 0
 		else:
 			return 1 + self.max(self.alto(nodo.derecha),self.alto(nodo.izquierda))		
-
-
+	def insertarPro(self,usuario,pas,on):
+		nuevo = Nodo(usuario,pas)
+		nuevo.on = on
+		self.insertar(usuario,pas,self.raiz,nuevo)
+		#elf.insertar(usuario,pas,nodo.derecha,insert)
 	def estadistica(self):
 		self.altura = 0 
 		self.nivel = 0 
@@ -182,6 +191,48 @@ class 	ArbolBinario():
 				return None
 			else:
 				self.eliminar(usuario,nodo.izquierda)
+	def maxi(self,nodo):
+		if (nodo.derecha == None):
+			return nodo
+		else:
+			return self.maxi(nodo.derecha)
+	def maximo(self):
+		if self.raiz == None:
+			return None
+		return self.maxi(self.raiz)
+	
+	def subIz(self):
+		arbol = ArbolBinario()
+		arbol.raiz = self.raiz.izquierda
+		return arbol
+	def subDer(self):
+		arbol = ArbolBinario()
+		arbol.raiz = self.raiz.derecha
+		return arbol				
+	def eli(self,val):
+		if self.raiz == None:
+			return None
+		if self.raiz.usuario == val:
+			if self.raiz.izquierda == None:
+				self.raiz = self.raiz.derecha
+			else:
+				if self.raiz.derecha == None:
+					self.raiz = self.raiz.izquierda
+				else:
+					h = self.subDer()	
+					self.raiz = self.raiz.izquierda
+					maxi = self.maximo()
+					maxi.derecha = h.raiz 
+		else:
+			if self.raiz.usuario > val:
+				hIzq = self.subIz();
+				hIzq.eli(val)
+				self.raiz.izquierda = hIzq.raiz
+			else:
+				hDer = self.subDer()
+				hDer.eli(val)
+				self.raiz.derecha = hDer.raiz	
+
 	def maspequeDerecha(self,nodo):
 		if nodo != None:
 			derecho = self.maspequeDerecha(nodo.derecha)
@@ -224,7 +275,19 @@ class 	ArbolBinario():
 				return None
 			else:
 				self.eliminarPunteroAnterior(nodo.izquierda,eliminar)			
-	
+	def listar(self,nodo):
+		if nodo != None:
+			self.listaNodos	 = self.listaNodos	+ ","+nodo.usuario
+		else:
+			return None
+		if nodo.derecha	 != None:
+			self.listar(nodo.derecha)
+		if nodo.izquierda != None:
+			self.listar(nodo.izquierda)			
+	def listarUsuarios(self):
+		self.listaNodos	 = ""
+		self.listar(self.raiz)
+		return self.listaNodos	
 	def buscar(self,usuario,nodo):
 		if nodo != None:
 			if nodo.usuario == usuario:
@@ -241,29 +304,33 @@ class 	ArbolBinario():
 				return self.buscar(usuario,nodo.izquierda)				
 
 
-ArbolNavideno = ArbolBinario()
-ArbolNavideno.insertar("f","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("d","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("x","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("a","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("e","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("g","saber",ArbolNavideno.raiz)
-ArbolNavideno.insertar("z","saber",ArbolNavideno.raiz)
-#ArbolNavideno.insertar("z2","saber",ArbolNavideno.raiz)
-ArbolNavideno.editar("a","perro2",True,ArbolNavideno.raiz)
+#ArbolNavideno = ArbolBinario()
 
-usuario = ArbolNavideno.buscar("g",ArbolNavideno.raiz)
-usuario.lista.insertar("Listadeg")
-usuario.lista.insertar("Listadeg2")
-usuario.lista.insertar("Listadeg3")
-usuario.lista.insertar("Listadeg4")
-usuario = ArbolNavideno.buscar("f",ArbolNavideno.raiz)
-usuario.lista.insertar("ListadeF")
-usuario.lista.insertar("ListadeF2")
-usuario.lista.insertar("ListadeF3")
-usuario.lista.insertar("ListadeF4")
-ArbolNavideno.graficar()
+#ArbolNavideno.insertarPro("f","saber",0)
+#ArbolNavideno.insertarPro("d","saber",0)
+#ArbolNavideno.insertarPro("x","saber",0)
+#ArbolNavideno.insertarPro("a","saber",0)
+#ArbolNavideno.insertarPro("e","saber",0)
+#ArbolNavideno.insertarPro("g","saber",0)
+#ArbolNavideno.insertarPro("z","saber",0)
+#ArbolNavideno.insertarPro("z2","saber",0)
+#ArbolNavideno.eli("f")
+#ArbolNavideno.graficar()
+
+#ArbolNavideno.editar("a","perro2",True,ArbolNavideno.raiz)
+
+#usuario = ArbolNavideno.buscar("g",ArbolNavideno.raiz)
+#usuario.lista.insertar("Listadeg")
+#usuario.lista.insertar("Listadeg2")
+#usuario.lista.insertar("Listadeg3")
+#usuario.lista.insertar("Listadeg4")
+#usuario = ArbolNavideno.buscar("f",ArbolNavideno.raiz)
+#usuario.lista.insertar("ListadeF")
+#usuario.lista.insertar("ListadeF2")
+#usuario.lista.insertar("ListadeF3")
+#usuario.lista.insertar("ListadeF4")
+#ArbolNavideno.graficar()
 #ArbolNavideno.graficarespejo()
-ArbolNavideno.estadistica()
-print("Hojas :" + str(ArbolNavideno.hojas) + "Nodos :" + str(ArbolNavideno.noditos) + "Altura : " + str(ArbolNavideno.altura)+ "Nivel : " + str(ArbolNavideno.nivel))
+#ArbolNavideno.estadistica()
+#print("Hojas :" + str(ArbolNavideno.hojas) + "Nodos :" + str(ArbolNavideno.noditos) + "Altura : " + str(ArbolNavideno.altura)+ "Nivel : " + str(ArbolNavideno.nivel))
 

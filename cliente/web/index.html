@@ -9,8 +9,48 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-3.2.1.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+          <script src="js/bootstrap.min.js"></script>
     </head>
+    <script type="text/javascript">
+    function llamar() {
+    	var z = $("#z").val();
+    	var usuario = $("#usuario").val();
+    	$.ajax(
+	{	
+  url : 'http://localhost:8080/cliente/llamarpython',
+  type: "POST",
+  data : {z: z,usuario:usuario,tipo:"getGame"},
+	 success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+	});
+    }
+    function enjuego(){
+    	var usuario = "Mord86";
+    		$.ajax(
+	{	
+  url : 'http://localhost:8080/cliente/llamarpython',
+  type: "POST",
+  data : {usuario:usuario,tipo:"getcubo"},
+	 success: function(response) {
+                $("#respuesta").html("<img src=\"data:image/png;base64,"+response+"\">");
+                //console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+	});
+    }
+    </script>
     <body>
-        <div>TODO write content</div>
+    	<button onclick="llamar()"> Login</button>
+        <div id="respuesta" class="respuesta"></div>
+        <input id="usuario">
+        <input id ="z">
     </body>
 </html>

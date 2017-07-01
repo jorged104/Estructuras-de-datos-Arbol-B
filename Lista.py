@@ -27,7 +27,8 @@ class Lista():
 					nuevo.anterior = temp 
 					break
 				else:
-					temp = temp.siguiente	
+					temp = temp.siguiente
+		return nuevo				
 	def imprimir(self):
 		temp = self.cabeza
 		while temp != None:
@@ -37,7 +38,7 @@ class Lista():
 		#dot = Digraph()
 		nodo = self.cabeza
 		while nodo != None:	
-			dot.node(str(nodo.oponente+"N#"+self.nombre),str(nodo.oponente))
+			dot.node(str(nodo.oponente+"N#"+self.nombre),str(nodo.oponente)+" R: "+str(nodo.tirosR) + " A: " + str(nodo.tirosA) + " F: " + str(nodo.tirosF) + " G " +str(nodo.ganada) + " Re " + str(nodo.dano))
 			if nodo.siguiente != None:
 				dot.edge(str(nodo.oponente+"N#"+self.nombre),str(nodo.siguiente.oponente+"N#"+self.nombre))
 			if nodo.anterior != None:
@@ -51,10 +52,11 @@ caren.insertar("Pablo")
 caren.insertar("Daniela")
 caren.insertar("valeria")
 caren.insertar("silvana")
-caren.insertar("meliGuapisisisadm")
+caren.insertar("meli")
 dot = Digraph()
 caren.graficar(dot)	
 dot.format = 'png'
 dot.render("Lista")				
 
-		
+
+	
