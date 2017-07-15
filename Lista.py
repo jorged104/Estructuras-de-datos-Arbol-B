@@ -1,4 +1,5 @@
 from graphviz import Digraph
+import json
 class Nodo():
 	"""docstring for Nodo"""
 	def __init__(self,oponente):
@@ -28,7 +29,24 @@ class Lista():
 					break
 				else:
 					temp = temp.siguiente
-		return nuevo				
+		return nuevo
+	def buscarporEnemigo(self,oponente):
+		temp = self.cabeza
+		while temp != None:
+			if temp.oponente == oponente:
+				return   json.dumps({'nombre':str(temp.nombre),'oponente':str(temp.oponente),'Realizados':str(temp.tirosR),'Acertados':str(temp.tirosA),'Fallados':str(temp.tirosF),'ganada':str(temp.ganada),'Re':str(temp.dano)})	
+			temp = temp.siguiente
+		return " "				
+	def listarEnemgos(self):
+		temp = self.cabeza
+		res = ""
+		while temp != None:
+			if temp.siguiente == None:
+				res = res + temp.oponente
+			else:
+				res = res  + temp.oponente + ","
+			temp = temp.siguiente
+		return res 	
 	def imprimir(self):
 		temp = self.cabeza
 		while temp != None:
@@ -46,17 +64,17 @@ class Lista():
 			nodo = nodo.siguiente		
 		#dot.format = 'png' 
 		#dot.render("Lista")
-caren = Lista()
-caren.nombre = "Caren"
-caren.insertar("Pablo")
-caren.insertar("Daniela")
-caren.insertar("valeria")
-caren.insertar("silvana")
-caren.insertar("meli")
-dot = Digraph()
-caren.graficar(dot)	
-dot.format = 'png'
-dot.render("Lista")				
+#caren = Lista()
+#caren.nombre = "Caren"
+#caren.insertar("Pablo")
+#caren.insertar("Daniela")
+#caren.insertar("valeria")
+#caren.insertar("silvana")
+#caren.insertar("meli")
+#dot = Digraph()
+#caren.graficar(dot)	
+#dot.format = 'png'
+#dot.render("Lista")				
 
 
 	

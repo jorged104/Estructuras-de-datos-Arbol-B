@@ -1,9 +1,11 @@
 from flask import Flask, session 
 from flask import request
 from flask import make_response
+import qrcode
+
 import json
 import ArbolBinario
-
+import ArbolB
 import base64
 class juego():
 	"""docstring for juego"""
@@ -25,6 +27,8 @@ class juego():
 		self.cubo1 = None
 		self.cubo2 = None
 		self.iniciado = False
+		self.arbolB = ArbolB.ArbolB()
+		self.ordenarB = "NoTiro"
 usuarios = ArbolBinario.ArbolBinario()
 game = juego()
 
@@ -48,6 +52,7 @@ def setgame():
 	game.turno = game.usuario1
 	game.dips = int(game.rafagas)
 	game.registro = False
+	game.arbolB = ArbolB.ArbolB()
 	return "ok"
 @app.route('/login',methods=['POST'])
 def login():
@@ -62,6 +67,21 @@ def login():
 		else:
 			return "False"
 	return "False"
+@app.route('/getQr',methods=['POST'])
+def getQt():
+	usuario= str(request.form['usuario'])
+	enemigo= str(request.form['enemigo'])
+	ndo = usuarios.buscar(usuario,usuarios.raiz)
+	if ndo != None:
+		img = qrcode.make(ndo.lista.buscarporEnemigo(enemigo))
+		f = open("output.png", "wb")
+		img.save(f)
+		f.close()
+	with open("output.png", "rb") as image:
+		data = image.read()
+	encoded_string = base64.b64encode(data)
+	return  encoded_string	
+			
 @app.route('/registro',methods=['POST'])
 def registro():
 	usuario= str(request.form['usuario'])
@@ -101,6 +121,7 @@ def registroDeJuegos():
 		nodo.tirosF = TirosF
 		nodo.ganada = Gano
 		nodo.dano = TirosRecibidos
+		nodo.nombre = usuario.usuario
 		return "ok"
 	else:
 		return "error"	
@@ -182,7 +203,7 @@ def tiro():
 	return "No Funciono"					
 @app.route('/getGame',methods=['POST'])
 def getGame():
-	juego = game.tiempoM+','+game.tiempoS+','+game.modalidad+','+game.disparo+','+game.rafagas+','+game.x+','+game.y
+	juego = str(game.tiempoM)+','+str(game.tiempoS)+','+str(game.modalidad)+','+str(game.disparo)+','+str(game.rafagas)+','+str(game.x)+','+str(game.y)
 	return juego
 @app.route('/cuboNaves',methods=['POST'] )
 def cuboNaves():
@@ -252,6 +273,16 @@ def getusuarios():
 		data = image.read()
 	encoded_string = base64.b64encode(data)
 	return  encoded_string
+@app.route('/getAvl',methods=['POST'] )
+def getAvl():
+	usuario = str(request.form['usuario'])
+	temp = usuarios.buscar(usuario,usuarios.raiz)
+	if temp != None:
+		temp.avl.graficar(usuario)
+		with open("avls/"+usuario+"ArbolAvl.png", "rb") as image:
+			data = image.read()
+		encoded_string = base64.b64encode(data)
+		return  encoded_string	
 @app.route('/getespejo',methods=['POST'] )
 def getespejo():
 	usuarios.graficarespejo()
@@ -307,18 +338,67 @@ def eliminarus():
 	usuario = str(request.form['usuario'])
 	usuarios.eli(usuario)
 	return "ok"	
+@app.route('/getListaJuegosUsuario',methods=['POST'] )
+def getListaJuegosUsuario():	
+	usuario = str(request.form['usuario'])
+	ndo = usuarios.buscar(usuario,usuarios.raiz)
+	if ndo != None:
+		return ndo.lista.listarEnemgos()
+	else:
+		return " "
+	return " "
 @app.route('/editarus',methods=['POST'] )
 def editarus():
 	usuario = str(request.form['usuario'])
 	contra = str(request.form['contra'])
 	usuarios.editar(usuario,contra,False,usuarios.raiz)
-	return "ok"				
+	return "ok"	
+@app.route('/InsertarAmigo',methods=['POST'] )
+def InsertarAmigo():
+	usuario = str(request.form['usuario'])
+	amigo = str(request.form['amigo'])
+	pas = str(request.form['pas'])
+	usuarios.insertarAmigo(usuario,amigo,pas)
+	return "okis"
+@app.route('/InsertarEnB',methods=['POST'] )
+def InsertarEnB():
+	#insertar_pro(self,clave,x,y,tiro,res,emisor,receptor,fecha,tiempo,NoTiro)
+	datos = []
+	datos.append(str(request.form['x']))
+	datos.append(int(request.form['y']))
+	datos.append(int(request.form['tiro']))
+	datos.append(int(request.form['res']))
+	datos.append(str(request.form['emisor']))
+	datos.append(str(request.form['receptor']))
+	datos.append(str(request.form['fecha']))
+	datos.append(str(request.form['tiempo']))
+	datos.append(int(request.form['NoTiro']))
+	datos.append(int(request.form['tipo']))
+	operaciones = { "x":0, "y":1, "tiro":2,"res":3,"emisor":4,"receptor":5,"fecha":6,"tiempo":7,"NoTiro":8,"tipo":9}	
+	print(str(datos[operaciones[game.ordenarB]]))
+	game.arbolB.insertar_pro(datos[operaciones[game.ordenarB]],datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],datos[7],datos[8],datos[9])				
+	return "ok"
+@app.route('/setOrden',methods=['POST'] )
+def setOrden():
+	game.ordenarB = str(request.form['or']);
+	return "ok"
+@app.route('/graficarBP',methods=['POST'] )
+def graficarBP():
+	game.arbolB.graficar()
+	with open("ArbolBPrro.png", "rb") as image:
+		data = image.read()
+	encoded_string = base64.b64encode(data)
+	return  encoded_string	
+	return "okis"	
 #*****************------------------------METODOS GET ---------------------------------------*************-
 @app.route('/graficarArbolUsuario')
 def graficarArbolUsuario():
 	usuarios.graficar()
 	return "okis"
-
+@app.route('/graficarB')
+def graficarB():
+	game.arbolB.graficar()
+	return "okis"
 @app.route('/getjuego')
 def getjuego():
 	#usuarios.graficar()

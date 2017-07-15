@@ -1,23 +1,23 @@
 digraph {
-	X0Y0Z0 [label=None]
-	X0Y0Z0 [label=None]
-		X0Y0Z0 -> X18Y0Z0
-		X0Y0Z0 -> X0Y90Z0
-	X18Y0Z0 [label=18]
-	X18Y0Z0 [label=18]
-		X18Y0Z0 -> X0Y0Z0
-		X18Y0Z0 -> X18Y90Z0
-{ rank = same;  X0Y0Z0 X18Y0Z0}
-	X0Y90Z0 [label=90]
-	X0Y90Z0 [label=90]
-		X0Y90Z0 -> X18Y90Z0
-		X0Y90Z0 -> X0Y0Z0
-	X18Y90Z0 [label=Null]
-	X18Y90Z0 [label=Null]
-		X18Y90Z0 -> "X18Y90Z-1"
-	"X18Y90Z-1" [label=boom]
-		"X18Y90Z-1" -> X18Y90Z0
-		X18Y90Z0 -> X0Y90Z0
-		X18Y90Z0 -> X18Y0Z0
-{ rank = same;  X0Y90Z0 X18Y90Z0}
+	X0Y0Z0 [label="None,0"]
+	X0Y0Z0 [label="None,0"]
+		X0Y0Z0 -> X4Y0Z0
+		X0Y0Z0 -> X0Y4Z0
+	X4Y0Z0 [label="4,0"]
+	X4Y0Z0 [label="4,0"]
+		X4Y0Z0 -> X0Y0Z0
+		X4Y0Z0 -> X4Y4Z0
+{ rank = same;  X0Y0Z0 X4Y0Z0}
+	X0Y4Z0 [label="4,0"]
+	X0Y4Z0 [label="4,0"]
+		X0Y4Z0 -> X4Y4Z0
+		X0Y4Z0 -> X0Y0Z0
+	X4Y4Z0 [label="Null,0"]
+	X4Y4Z0 [label="Null,0"]
+		X4Y4Z0 -> X4Y4Z2
+	X4Y4Z2 [label="boom,0"]
+		X4Y4Z2 -> X4Y4Z0
+		X4Y4Z0 -> X0Y4Z0
+		X4Y4Z0 -> X4Y0Z0
+{ rank = same;  X0Y4Z0 X4Y4Z0}
 }

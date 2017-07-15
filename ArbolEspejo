@@ -1,11 +1,9 @@
 digraph {
 	Admin [label="Admin , admin , False"]
-	Mord86 [label="Mord86 , NPZ44VGE5FD , False"]
-	Stin94 [label="Stin94 , hola , False"]
-	Stin94 [label="Stin94 , Admin , False"]
+	Mord86 [label="Mord86 , hola , False"]
+	Stin94 [label="Stin94 , WAG95DOM2LZ , False"]
 	Taon95 [label="Taon95 , USW07EIK1AC , False"]
 		Stin94 -> Taon95
-		Stin94 -> Stin94
 		Mord86 -> Stin94
 		Mord86 -> Asro25
 	Asro25 [label="Asro25 , PDW92QLF0HC , False"]

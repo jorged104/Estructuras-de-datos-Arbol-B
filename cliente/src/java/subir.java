@@ -237,6 +237,37 @@ public class subir extends HttpServlet {
                    post2.getRespueta();
                           
                    break;
+                case "contactos":
+                      for(int i = 1 ; i < resultado.length;i++)
+                      {
+                          String contactos = resultado[i];
+                          String[] datac = contactos.split(","); 
+                         PeticionPost insertarA = new PeticionPost("http://localhost:5000/InsertarAmigo");
+                                  insertarA.add("usuario",datac[0]);
+                                  insertarA.add("amigo",datac[1]);
+                                  insertarA.add("pas",datac[2]);  
+                                  insertarA.getRespueta();
+                      }
+                  break;
+                case "historial":
+                    for(int i = 1 ; i < resultado.length;i++)
+                      {
+                          String historial = resultado[i];
+                          String[] datac = historial.split(","); 
+                         PeticionPost ph = new PeticionPost("http://localhost:5000/InsertarEnB");
+                                  ph.add("x",datac[0]);
+                                  ph.add("y",datac[1]);
+                                  ph.add("tiro",datac[2]);
+                                  ph.add("res",datac[3]);
+                                  ph.add("tipo",datac[4]);
+                                  ph.add("emisor",datac[5]);
+                                  ph.add("receptor",datac[6]);
+                                  ph.add("fecha",datac[7]);
+                                  ph.add("tiempo",datac[8]);
+                                  ph.add("NoTiro",datac[9]);
+                                  ph.getRespueta();
+                      }
+                    break;
            }
             //out.print(resultado[0]);
             //out.print(tipo);

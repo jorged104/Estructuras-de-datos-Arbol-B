@@ -1,6 +1,7 @@
 from graphviz import Digraph
 import Lista
 import MatrizDispersa
+import ArbolAvl
 class 	Nodo():
 	"""docstring for 	Nodo"""
 	def __init__(self, usuario,pas):
@@ -16,8 +17,9 @@ class 	Nodo():
 		self.izquierda = None
 		self.R =0
 		self.F =0
+		self.avl = ArbolAvl.Avl()
 		self.A =0
- 
+
 class 	ArbolBinario():
 	def __init__(self):
 		self.raiz = None
@@ -320,7 +322,13 @@ class 	ArbolBinario():
 				return None
 			else:
 				return self.buscar(usuario,nodo.izquierda)				
-
+	def insertarAmigo(self,usuario,amigo,pas):
+		temp = self.buscar(usuario,self.raiz)
+		temp2 = self.buscar(amigo,self.raiz)
+		if temp != None:
+			temp.avl.insertar_Pro(amigo,pas,temp2)
+	
+				
 
 #ArbolNavideno = ArbolBinario()
 

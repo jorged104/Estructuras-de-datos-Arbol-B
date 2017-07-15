@@ -156,6 +156,36 @@ public class llamarpython extends HttpServlet {
                     res = post.getRespueta();
                     out.println(res);
                       break;
+                    case "getListaEnemigos":
+                    post= new PeticionPost("http://localhost:5000/getListaJuegosUsuario");
+                    post.add("usuario",request.getParameter("usuario"));
+                    res = post.getRespueta();
+                    out.println(res);
+                        break;
+                     case "getQr":
+                    post= new PeticionPost("http://localhost:5000/getQr");
+                    post.add("usuario",request.getParameter("usuario"));
+                    post.add("enemigo",request.getParameter("enemigo"));
+                    res = post.getRespueta();
+                    out.println(res);
+                        break;  
+                     case "getAvl":
+                        post= new PeticionPost("http://localhost:5000/getAvl");
+                        post.add("usuario",request.getParameter("usuario"));
+                        res = post.getRespueta();
+                        out.println(res);
+                         break;//setOrden
+                      case "setOrden":
+                        post= new PeticionPost("http://localhost:5000/setOrden");
+                        post.add("or",request.getParameter("or"));
+                        res = post.getRespueta();
+                        out.println(res);
+                         break;    
+                         case "graficarBP"://graficarBP
+                        post= new PeticionPost("http://localhost:5000/graficarBP");
+                        res = post.getRespueta();
+                        out.println(res);
+                         break; 
                     
             }
         }

@@ -544,6 +544,21 @@
         }
         return 255;
         }
+              function setOrden()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {tipo:"setOrden",or:$("#ordenarb").val()},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html(response);
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
     </script>
     <body>
         
@@ -559,9 +574,25 @@
                             <option>Juego</option>
                             <option>naves</option>
                             <option>JuegoActual</option>
+                            <option>contactos</option>
+                            <option>historial</option>
                         </select>
 			<input type="submit" value="Upload" />
 		</form>
+                        Ordenar B por : <select id="ordenarb">
+                            <option value="x">x</option>
+                            <option value="y">y</option>
+                            <option value="tiro">Tiro</option>
+                            <option value="res">Resultado</option>
+                            <option value="emisor">Emisor</option>
+                            <option value="receptor">receptor</option>
+                            <option value="fecha">fecha</option>
+                            <option value="tiempo">tiempo</option>
+                            <option value="NoTiro">Numero de Tiro</option>
+                            <option value="tipo">Tipo Nave</option>
+                           
+                        </select>
+                        <input type="button" onclick="setOrden()">
                 <input type="button" onclick="letra('D')">
                 <div class="row">
                     
