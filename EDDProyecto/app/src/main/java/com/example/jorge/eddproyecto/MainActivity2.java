@@ -1,5 +1,6 @@
 package com.example.jorge.eddproyecto;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,9 @@ public class MainActivity2 extends AppCompatActivity {
         usuario = getIntent().getExtras().getString("usuario");
         Button botonqr = (Button) findViewById(R.id.qr);
         Button botonArbolB = (Button) findViewById(R.id.arb);
+        Button btmas = (Button) findViewById(R.id.bt_mas);
+        //bhash
+        Button ha = (Button) findViewById(R.id.bhash);
          ImgQr = (ImageView) findViewById(R.id.imageView2) ;
         lista = (Spinner) findViewById(R.id.spinner2);
         cargardatos();
@@ -69,6 +73,38 @@ public class MainActivity2 extends AppCompatActivity {
                 arbolB();
             }
         });
+        btmas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent ListSong = new Intent(MainActivity2.this, Mas.class);
+                ListSong.putExtra("usuario",usuario);
+                startActivity(ListSong);
+            }
+        });
+        ha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                graficarhash();
+            }
+        });
+    }
+    public void graficarhash(){
+        try {
+            SendRequest nuevo = new SendRequest("http://192.168.1.4:8080/cliente/llamarpython");
+            nuevo.addParam("tipo", "llenarhash");
+
+            nuevo.execute();
+            nuevo.get(5000, TimeUnit.MILLISECONDS);
+            Toast.makeText(getApplicationContext(),nuevo.respuesta,
+                    Toast.LENGTH_LONG).show();
+            byte[] decodedString = Base64.decode(nuevo.respuesta,Base64.NO_WRAP);
+            InputStream inputStream  = new ByteArrayInputStream(decodedString);
+            Bitmap bitmap  = BitmapFactory.decodeStream(inputStream);
+            ImgQr.setImageBitmap(bitmap);
+
+        }catch (Exception e ){}
     }
     public void arbolB(){
         try {

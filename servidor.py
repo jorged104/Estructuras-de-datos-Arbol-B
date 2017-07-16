@@ -7,6 +7,7 @@ import json
 import ArbolBinario
 import ArbolB
 import base64
+import TablaHash
 class juego():
 	"""docstring for juego"""
 	def __init__(self):
@@ -29,9 +30,10 @@ class juego():
 		self.iniciado = False
 		self.arbolB = ArbolB.ArbolB()
 		self.ordenarB = "NoTiro"
+		self.nTiros = 0
 usuarios = ArbolBinario.ArbolBinario()
 game = juego()
-
+TablaH = TablaHash.TablaHash(47)
 usuarios.insertarPro("Admin","admin","0")
 
 app = Flask(__name__)
@@ -165,12 +167,14 @@ def enturno():
 	return "False"
 @app.route('/tiro',methods=['POST'])
 def tiro():
+	game.nTiros = game.nTiros + 1
 	usuario = str(request.form['usuario'])
 	x = str(request.form['x'])
 	y = str(request.form['y'])
 	z = str(request.form['z'])
 	tirarA = None
 	dis = None
+	receptor = ""
 	if game.iniciado == False:
 		game.iniciado = True
 		game.cubo1 = game.Ausuario1.cubo
@@ -178,12 +182,14 @@ def tiro():
 	if usuario == game.usuario1:
 		tirarA = game.Ausuario2
 		dis = game.Ausuario1
+		receptor = game.usuario2
 		game.dips = game.dips-1
 		if ( game.disparo == 1 or game.dips ==0):
 			game.turno = game.usuario2
 			game.dips = int(game.rafagas)	
 	if usuario == game.usuario2:
 		tirarA = game.Ausuario1
+		receptor = game.usuario1
 		dis = game.Ausuario2
 		game.dips = game.dips	-1
 		if game.disparo	== 1 or game.dips==0:	
@@ -194,10 +200,12 @@ def tiro():
 		t = tirarA.cubo.tiro(x,y,z)
 		if t == True:
 			dis.disparosA.Insertar(int(x),int(y),int(z),"boom")
+			insB(int(x),int(y),game.disparo,2,usuario,receptor,"","",game.nTiros,int(z))
 			dis.A = dis.A +1
 		else:
 			dis.disparosF.Insertar(int(x),int(y),int(z),"boom")
 			dis.F = dis.F +1
+			insB(int(x),int(y),game.disparo,1,usuario,receptor,"","",game.nTiros,int(z))
 			print("********************"+ str(t)+"*****")
 		return "Tiro True"
 	return "No Funciono"					
@@ -378,6 +386,23 @@ def InsertarEnB():
 	print(str(datos[operaciones[game.ordenarB]]))
 	game.arbolB.insertar_pro(datos[operaciones[game.ordenarB]],datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],datos[7],datos[8],datos[9])				
 	return "ok"
+def insB(x,y,tiro,res,emisor,receptor,fecha,tiempo,NoTiro,tipo):
+	#insertar_pro(self,clave,x,y,tiro,res,emisor,receptor,fecha,tiempo,NoTiro)
+	datos = []
+	datos.append(str(x))
+	datos.append(int(y))
+	datos.append(int(tiro))
+	datos.append(int(res))
+	datos.append(str(emisor))
+	datos.append(str(receptor))
+	datos.append(str(fecha))
+	datos.append(str(tiempo))
+	datos.append(int(NoTiro))
+	datos.append(int(tipo))
+	operaciones = { "x":0, "y":1, "tiro":2,"res":3,"emisor":4,"receptor":5,"fecha":6,"tiempo":7,"NoTiro":8,"tipo":9}	
+	print(str(datos[operaciones[game.ordenarB]]))
+	game.arbolB.insertar_pro(datos[operaciones[game.ordenarB]],datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6],datos[7],datos[8],datos[9])				
+		
 @app.route('/setOrden',methods=['POST'] )
 def setOrden():
 	game.ordenarB = str(request.form['or']);
@@ -389,7 +414,51 @@ def graficarBP():
 		data = image.read()
 	encoded_string = base64.b64encode(data)
 	return  encoded_string	
-	return "okis"	
+	return "okis"
+@app.route('/graficarBPC',methods=['POST'] )
+def graficarBPC():
+	game.arbolB.graficarC()
+	with open("ArbolBPrroC.png", "rb") as image:
+		data = image.read()
+	encoded_string = base64.b64encode(data)
+	return  encoded_string	
+	return "okis"
+
+@app.route('/llenarhash',methods=['POST'] )
+def llenarhash():
+
+	res = usuarios.listarUsuarios()
+	s = res.split(",")
+	i = 0
+	while i < len(s)-1:
+		TablaH.insertar(s[i])
+		i = i +1
+	TablaH.graficar()
+	encoded_string = ""
+	with open("hashprro.png", "rb") as image:
+		data = image.read()
+	encoded_string = base64.b64encode(data)
+	return  encoded_string	
+@app.route('/eliminarContacto',methods=['POST'] )
+def eliminarContacto():
+	usuario  = str(request.form['usuario']);
+	contacto  = str(request.form['contacto']);
+	nodotemp = usuarios.buscar(usuario,usuarios.raiz)
+	if nodotemp != None:
+		nodotemp.avl.eliminar(contacto)
+	return "ok"		
+@app.route('/modificarContacto',methods=['POST'] )
+def modificarContacto():
+	usuario  = str(request.form['usuario']);
+	contacto  = str(request.form['contacto']);
+	nuevapass  = str(request.form['nuevapass']);
+	nodotemp = usuarios.buscar(usuario,usuarios.raiz)
+	if nodotemp != None:
+		avlNodo = nodotemp.avl.busqueda(nodotemp.avl.raiz,contacto)
+		if avlNodo != None:
+			avlNodo.pas = nuevapass
+	return "ok"			
+
 #*****************------------------------METODOS GET ---------------------------------------*************-
 @app.route('/graficarArbolUsuario')
 def graficarArbolUsuario():

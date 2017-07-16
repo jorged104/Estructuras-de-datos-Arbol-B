@@ -1,0 +1,10 @@
+digraph {
+	node [shape=record]
+		"3N1" [label=Taon95]
+			tabla:"3N0" -> "3N1"
+		"8N1" [label=Asro25]
+			"8N1" -> "8N2"
+		"8N2" [label=Imre78]
+			tabla:"8N0" -> "8N1"
+		tabla [label="<0N0> 0. |<1N0> 1.Vacio |<2N0> 2.Vacio |<3N0> 3.Mord86 |<4N0> 4.Vacio |<5N0> 5.Vacio |<6N0> 6.Vacio |<7N0> 7.Vacio |<8N0> 8.Stin94 |<9N0> 9.Vacio |<10N0> 10.Admin |<11N0> 11.Vacio |<12N0> 12.Vacio |<13N0> 13.Vacio |<14N0> 14.Vacio |<15N0> 15.Vacio |<16N0> 16.Vacio |<17N0> 17.Vacio |<18N0> 18.Vacio |<19N0> 19.Vacio |<20N0> 20.Vacio |<21N0> 21.Vacio |<22N0> 22.Vacio |<23N0> 23.Vacio |<24N0> 24.Vacio |<25N0> 25.Vacio |<26N0> 26.Vacio |<27N0> 27.Vacio |<28N0> 28.Vacio |<29N0> 29.Vacio |<30N0> 30.Vacio |<31N0> 31.Vacio |<32N0> 32.Vacio |<33N0> 33.Vacio |<34N0> 34.Vacio |<35N0> 35.Vacio |<36N0> 36.Vacio |<37N0> 37.Vacio |<38N0> 38.Vacio |<39N0> 39.Vacio |<40N0> 40.Vacio |<41N0> 41.Vacio |<42N0> 42.Vacio |<43N0> 43.Vacio |<44N0> 44.Vacio |<45N0> 45.Vacio |<46N0> 46.Vacio |"]
+}

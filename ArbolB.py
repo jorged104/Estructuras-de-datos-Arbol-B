@@ -217,7 +217,35 @@ class ArbolB():
 				self.graf(pagina.clave[i].der,dot)
 				dot.edge(str(pagina.getName())+":"+str(hash(pagina.clave[i])),str(pagina.clave[i].der.getName())+":"+str(hash(pagina.clave[i].der.clave[1])))
 			i  = i +1
+	def graficarC(self):
+		#dot = Digraph()
+		dot = Digraph('dot', node_attr={'shape': 'record', 'height': '.1'})
+		if self.raiz != None:
+			self.grafC(self.raiz,dot)
+		dot.format = 'png'
+		dot.render("ArbolBPrroC")
+	def grafC(self,pagina,dot):
+	
+		i = 0
+		s = ""
+		while i < len(pagina.clave):
+			if (i == len(pagina.clave)-1):
+				s = s + "<" + str(hash(pagina.clave[i]))+"> " + str(pagina.clave[i].clave) +" x " +str(pagina.clave[i].x)+" y " +str(pagina.clave[i].y)+" tiro " +str(pagina.clave[i].tiro)  +" Resp " +str(pagina.clave[i].res) +" emisor " +str(pagina.clave[i].emisor) +" receptor " +str(pagina.clave[i].receptor) +" NoTiro " +str(pagina.clave[i].NoTiro) 
+			else:
+				s = s + "<" + str(hash(pagina.clave[i]))+"> " + str(pagina.clave[i].clave) +" x " +str(pagina.clave[i].x)+" y " +str(pagina.clave[i].y)+" tiro " +str(pagina.clave[i].tiro)  +" Resp " +str(pagina.clave[i].res) +" emisor " +str(pagina.clave[i].emisor) +" receptor " +str(pagina.clave[i].receptor) +" NoTiro " +str(pagina.clave[i].NoTiro) + " | "		
+			
+			i = i + 1
 
+		dot.node(str(pagina.getName()),s)
+		i = 0
+		if pagina.clave[0].iz !=  None:
+			self.grafC(pagina.clave[0].iz,dot)
+			dot.edge(str(pagina.getName())+":"+str(hash(pagina.clave[0])),str(pagina.clave[0].iz.getName())+":"+str(hash(pagina.clave[0].iz.clave[1])))
+		while i < len(pagina.clave):
+			if pagina.clave[i].der != None:
+				self.grafC(pagina.clave[i].der,dot)
+				dot.edge(str(pagina.getName())+":"+str(hash(pagina.clave[i])),str(pagina.clave[i].der.getName())+":"+str(hash(pagina.clave[i].der.clave[1])))
+			i  = i +1		
 
 #A  = ArbolB()
 #insertar_pro(self,clave,x,y,tiro,res,emisor,receptor,fecha,tiempo,NoTiro)

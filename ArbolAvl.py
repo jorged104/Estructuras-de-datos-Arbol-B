@@ -276,10 +276,6 @@ class Avl:
         self.insertar(codigo)
 
 
-    def borrar(self, codigo):
-        temp=archivo(codigo)
-        self.eliminar(temp)
-
     def graficar(self,nombre):
         dot = Digraph()
         if self.raiz != None:

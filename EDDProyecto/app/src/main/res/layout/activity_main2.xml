@@ -32,6 +32,7 @@
             android:layout_height="match_parent"
             android:id="@+id/imageView2"
             android:layout_gravity="left|top" />
+
     </FrameLayout>
 
     <Spinner
@@ -57,15 +58,28 @@
         android:layout_height="wrap_content"
         android:text="ArbolB"
         android:id="@+id/arb"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/qr"
+        android:layout_alignLeft="@+id/spinner2"
+        android:layout_alignStart="@+id/spinner2" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="hash"
         android:id="@+id/bhash"
-        android:layout_alignTop="@+id/arb"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/qr"
+        android:layout_toRightOf="@+id/arb"
+        android:layout_toEndOf="@+id/arb" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="66dp"
+        android:layout_height="wrap_content"
+        android:text="Mas"
+        android:id="@+id/bt_mas"
+        android:layout_gravity="center"
+        android:layout_below="@+id/qr"
+        android:layout_toRightOf="@+id/bhash"
+        android:layout_toEndOf="@+id/bhash" />
+
 </RelativeLayout>

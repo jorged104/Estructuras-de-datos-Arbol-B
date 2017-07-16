@@ -1,23 +1,36 @@
 digraph {
 	X0Y0Z0 [label="None,0"]
 	X0Y0Z0 [label="None,0"]
-		X0Y0Z0 -> X4Y0Z0
-		X0Y0Z0 -> X0Y4Z0
-	X4Y0Z0 [label="4,0"]
-	X4Y0Z0 [label="4,0"]
-		X4Y0Z0 -> X0Y0Z0
-		X4Y0Z0 -> X4Y4Z0
-{ rank = same;  X0Y0Z0 X4Y0Z0}
-	X0Y4Z0 [label="4,0"]
-	X0Y4Z0 [label="4,0"]
-		X0Y4Z0 -> X4Y4Z0
-		X0Y4Z0 -> X0Y0Z0
-	X4Y4Z0 [label="Null,0"]
-	X4Y4Z0 [label="Null,0"]
-		X4Y4Z0 -> X4Y4Z2
-	X4Y4Z2 [label="boom,0"]
-		X4Y4Z2 -> X4Y4Z0
-		X4Y4Z0 -> X0Y4Z0
-		X4Y4Z0 -> X4Y0Z0
-{ rank = same;  X0Y4Z0 X4Y4Z0}
+		X0Y0Z0 -> X1Y0Z0
+		X0Y0Z0 -> X0Y26Z0
+	X1Y0Z0 [label="1,0"]
+	X1Y0Z0 [label="1,0"]
+		X1Y0Z0 -> X6Y0Z0
+		X1Y0Z0 -> X0Y0Z0
+		X1Y0Z0 -> X1Y26Z0
+	X6Y0Z0 [label="6,0"]
+	X6Y0Z0 [label="6,0"]
+		X6Y0Z0 -> X1Y0Z0
+		X6Y0Z0 -> X6Y26Z0
+{ rank = same;  X0Y0Z0 X1Y0Z0 X6Y0Z0}
+	X0Y26Z0 [label="26,0"]
+	X0Y26Z0 [label="26,0"]
+		X0Y26Z0 -> X1Y26Z0
+		X0Y26Z0 -> X0Y0Z0
+	X1Y26Z0 [label="Null,0"]
+	X1Y26Z0 [label="Null,0"]
+		X1Y26Z0 -> X1Y26Z2
+	X1Y26Z2 [label="boom,0"]
+		X1Y26Z2 -> X1Y26Z0
+		X1Y26Z0 -> X6Y26Z0
+		X1Y26Z0 -> X0Y26Z0
+		X1Y26Z0 -> X1Y0Z0
+	X6Y26Z0 [label="Null,0"]
+	X6Y26Z0 [label="Null,0"]
+		X6Y26Z0 -> X6Y26Z2
+	X6Y26Z2 [label="boom,0"]
+		X6Y26Z2 -> X6Y26Z0
+		X6Y26Z0 -> X1Y26Z0
+		X6Y26Z0 -> X6Y0Z0
+{ rank = same;  X0Y26Z0 X1Y26Z0 X6Y26Z0}
 }

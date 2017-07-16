@@ -1,15 +1,51 @@
 digraph {
 	Admin [label="Admin , admin , 1"]
 		Admin -> Mord86
-	Mord86 [label="Mord86 , hola , False"]
+	Mord86 [label="Mord86 , NPZ44VGE5FD , 0"]
+	"Stin94N#L#Mord86" [label="Stin94 R: 51 A: 26 F: 25 G 0 Re 10"]
+		"Stin94N#L#Mord86" -> "Asro25N#L#Mord86"
+	"Asro25N#L#Mord86" [label="Asro25 R: 57 A: 29 F: 28 G 1 Re 19"]
+		"Asro25N#L#Mord86" -> "Idin94N#L#Mord86"
+		"Asro25N#L#Mord86" -> "Stin94N#L#Mord86"
+	"Idin94N#L#Mord86" [label="Idin94 R: 46 A: 22 F: 24 G 0 Re 12"]
+		"Idin94N#L#Mord86" -> "Jado86N#L#Mord86"
+		"Idin94N#L#Mord86" -> "Asro25N#L#Mord86"
+	"Jado86N#L#Mord86" [label="Jado86 R: 53 A: 27 F: 26 G 1 Re 14"]
+		"Jado86N#L#Mord86" -> "Idin94N#L#Mord86"
+		Mord86 -> "Stin94N#L#Mord86"
 	Asro25 [label="Asro25 , PDW92QLF0HC , 0"]
 		Asro25 -> Imre78
 	Imre78 [label="Imre78 , MDQ80CXX3XT , 0"]
+	"Erll88N#L#Imre78" [label="Erll88 R: 49 A: 20 F: 29 G 1 Re 9"]
+		"Erll88N#L#Imre78" -> "Geon75N#L#Imre78"
+	"Geon75N#L#Imre78" [label="Geon75 R: 46 A: 23 F: 23 G 1 Re 19"]
+		"Geon75N#L#Imre78" -> "Taan31N#L#Imre78"
+		"Geon75N#L#Imre78" -> "Erll88N#L#Imre78"
+	"Taan31N#L#Imre78" [label="Taan31 R: 52 A: 28 F: 24 G 1 Re 11"]
+		"Taan31N#L#Imre78" -> "Haan9N#L#Imre78"
+		"Taan31N#L#Imre78" -> "Geon75N#L#Imre78"
+	"Haan9N#L#Imre78" [label="Haan9 R: 44 A: 20 F: 24 G 0 Re 16"]
+		"Haan9N#L#Imre78" -> "Taan31N#L#Imre78"
+		Imre78 -> "Erll88N#L#Imre78"
 	Avey48 [label="Avey48 , ZEE21HJG3WL , 0"]
 		Imre78 -> Avey48
 		Mord86 -> Asro25
 		Mord86 -> Stin94
 	Stin94 [label="Stin94 , WAG95DOM2LZ , 0"]
+	"Mord86N#L#Stin94" [label="Mord86 R: 46 A: 21 F: 25 G 1 Re 13"]
+		"Mord86N#L#Stin94" -> "Asro25N#L#Stin94"
+	"Asro25N#L#Stin94" [label="Asro25 R: 45 A: 23 F: 22 G 0 Re 16"]
+		"Asro25N#L#Stin94" -> "Imre78N#L#Stin94"
+		"Asro25N#L#Stin94" -> "Mord86N#L#Stin94"
+	"Imre78N#L#Stin94" [label="Imre78 R: 56 A: 29 F: 27 G 0 Re 9"]
+		"Imre78N#L#Stin94" -> "Idin94N#L#Stin94"
+		"Imre78N#L#Stin94" -> "Asro25N#L#Stin94"
+	"Idin94N#L#Stin94" [label="Idin94 R: 41 A: 21 F: 20 G 1 Re 18"]
+		"Idin94N#L#Stin94" -> "Jado86N#L#Stin94"
+		"Idin94N#L#Stin94" -> "Imre78N#L#Stin94"
+	"Jado86N#L#Stin94" [label="Jado86 R: 48 A: 22 F: 26 G 1 Re 12"]
+		"Jado86N#L#Stin94" -> "Idin94N#L#Stin94"
+		Stin94 -> "Mord86N#L#Stin94"
 		Stin94 -> Taon95
 	Taon95 [label="Taon95 , USW07EIK1AC , 0"]
 }

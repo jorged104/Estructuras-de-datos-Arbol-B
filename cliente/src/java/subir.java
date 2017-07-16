@@ -268,6 +268,19 @@ public class subir extends HttpServlet {
                                   ph.getRespueta();
                       }
                     break;
+                    case "tiros":
+                    for(int i = 1 ; i < resultado.length;i++)
+                      {
+                          String historial = resultado[i];
+                          String[] tiro = historial.split(","); 
+                         PeticionPost ph = new PeticionPost("http://localhost:5000/tiro");
+                                  ph.add("usuario",tiro[0]);
+                                  ph.add("x",String.valueOf(letra(tiro[1])));
+                                  ph.add("y",tiro[2]);
+                                  ph.add("z","2");
+                                  ph.getRespueta();
+                      }
+                    break;
            }
             //out.print(resultado[0]);
             //out.print(tipo);

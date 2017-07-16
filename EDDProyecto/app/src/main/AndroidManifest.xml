@@ -33,7 +33,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".dashboard" />
-        <activity android:name=".MainActivity2"></activity>
+        <activity android:name=".MainActivity2" />
+        <activity android:name=".Mas"></activity>
     </application>
 
 </manifest>
