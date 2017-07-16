@@ -211,6 +211,11 @@ public class llamarpython extends HttpServlet {
                         res = post.getRespueta();
                         out.println(res);
                          break; 
+                              case "graficarhash"://graficarBP
+                        post= new PeticionPost("http://localhost:5000/graficarhash");
+                        res = post.getRespueta();
+                        out.println(res);
+                         break; 
                          
                     
             }

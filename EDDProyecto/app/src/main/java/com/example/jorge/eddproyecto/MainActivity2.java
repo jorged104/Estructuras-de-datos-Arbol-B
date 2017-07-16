@@ -93,7 +93,7 @@ public class MainActivity2 extends AppCompatActivity {
     public void graficarhash(){
         try {
             SendRequest nuevo = new SendRequest("http://192.168.1.4:8080/cliente/llamarpython");
-            nuevo.addParam("tipo", "llenarhash");
+            nuevo.addParam("tipo", "graficarhash");
 
             nuevo.execute();
             nuevo.get(5000, TimeUnit.MILLISECONDS);

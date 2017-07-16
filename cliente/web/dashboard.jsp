@@ -486,6 +486,21 @@
                     }
 	});
         }
+         function H2()
+        {
+                   	$.ajax({	
+                    url : '/cliente/llamarpython',
+                    type: "POST",
+                    data : {usuario:usuario,tipo:"graficarhash"},
+                    success: function(response) {
+                           // console.log(response);
+                         $("#respuestaM").html("<img src=\"data:image/png;base64,"+response+"\">");
+                    },
+                    error: function(error) {
+                         console.log(error);
+                    }
+	});
+        }
            function B()
         {
                    	$.ajax({	
@@ -647,7 +662,8 @@
       <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="getA()">Tiros Acertados</button>
       <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="getF()">Tiros Fallados</button>
       <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="B()">ArbolBCompleto</button>
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="H()">TablaHash</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="H()">Llenar Hash</button>
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="H2()">Graficar Hash</button>
       <div id="turnoDiv"></div>
       Disparo x <input id ="disparox">
       Disparo y <input id ="disparoy">

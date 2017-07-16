@@ -439,6 +439,15 @@ def llenarhash():
 		data = image.read()
 	encoded_string = base64.b64encode(data)
 	return  encoded_string	
+@app.route('/graficarhash',methods=['POST'] )
+def graficarhash():
+	TablaH.graficar()
+	encoded_string = ""
+	with open("hashprro.png", "rb") as image:
+		data = image.read()
+	encoded_string = base64.b64encode(data)
+	return  encoded_string	
+
 @app.route('/eliminarContacto',methods=['POST'] )
 def eliminarContacto():
 	usuario  = str(request.form['usuario']);

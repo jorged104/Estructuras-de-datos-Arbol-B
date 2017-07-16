@@ -1,10 +1,3 @@
 digraph dot {
 	node [height=.1 shape=record]
-		4399903 [label="<4401507> 3 x B y B tiro 1 Resp 1 emisor Mord86 receptor Stin94 NoTiro 3 | <4400033> 6 x AB y AB tiro 1 Resp 2 emisor Stin94 receptor Mord96 NoTiro 6"]
-		4400117 [label="<4401483> 1 x AC y AC tiro 1 Resp 1 emisor Mord86 receptor Stin94 NoTiro 1 | <4401565> 2 x W y W tiro 1 Resp 3 emisor Stin94 receptor Mord96 NoTiro 2"]
-			4399903:4401507 -> 4400117:4401565
-		4352177 [label="<4401423> 4 x E y E tiro 11 Resp 3 emisor Stin94 receptor Mord96 NoTiro 4 | <4399885> 5 x Z y Z tiro 1 Resp 3 emisor Mord86 receptor Stin94 NoTiro 5"]
-			4399903:4401507 -> 4352177:4399885
-		4352137 [label="<4399997> 7 x J y J tiro 1 Resp 1 emisor Mord86 receptor Stin94 NoTiro 7 | <4352135> 8 x T y T tiro 1 Resp 2 emisor Stin94 receptor Mord96 NoTiro 8 | <4372355> 9 x F y F tiro 1 Resp 3 emisor Mord86 receptor Stin94 NoTiro 9 | <4403907> 10 x AC y AC tiro 1 Resp 3 emisor Stin94 receptor Mord96 NoTiro 10"]
-			4399903:4400033 -> 4352137:4352135
 }
